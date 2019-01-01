@@ -11,7 +11,8 @@
         "symfony/dotenv": "4.2.*",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "webmozart/assert": "^1.4"
     },
     "config": {
         "preferred-install": {
@@ -26,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "MyBudget\\Tests\\Behavioral\\": "tests/behavioral/contexts"
         }
     },
     "replace": {
@@ -59,6 +60,7 @@
         }
     },
     "require-dev": {
+        "behat/symfony2-extension": "^2.1",
         "phpstan/phpstan": "^0.10.7"
     }
 }

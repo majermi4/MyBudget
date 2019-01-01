@@ -1,0 +1,12 @@
+default:
+    suites:
+        default:
+            paths:
+                - '%paths.base%/tests/behavioral/features'
+            contexts:
+                - MyBudget\Tests\Behavioral\FeatureContext: []
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                class: MyBudget\Application\Kernel
