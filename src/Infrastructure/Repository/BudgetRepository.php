@@ -42,6 +42,7 @@ class BudgetRepository implements \MyBudget\Domain\Repository\BudgetRepository
                 $storedEventsData
             );
 
+        /** @var Budget $budget */
         $budget = Budget::fromEvents($storedEvents);
 
         return $budget;
@@ -68,6 +69,6 @@ class BudgetRepository implements \MyBudget\Domain\Repository\BudgetRepository
             return [];
         }
 
-        return json_decode(file_get_contents($this->eventStoreFilePath), true);
+        return json_decode((string) file_get_contents($this->eventStoreFilePath), true);
     }
 }

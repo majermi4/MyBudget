@@ -8,7 +8,7 @@ use ReflectionClass;
 
 class AbstractAggregate
 {
-    /** @var object[]|array */
+    /** @var Event[]|array */
     private $recordedEvents = [];
 
     final protected function __construct()
@@ -63,7 +63,7 @@ class AbstractAggregate
             ));
         }
 
-        call_user_func([$this, $listenerMethodName], $event);
+        $this->$listenerMethodName($event);
     }
 
     private static function getEventListenerMethodName(object $event) : string

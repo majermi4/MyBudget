@@ -11,6 +11,8 @@ class CategoryAlreadyExistsException extends \Exception
     public function __construct(string $categoryName)
     {
         $this->categoryName = $categoryName;
+
+        parent::__construct();
     }
 
     public function getCategoryName() : string

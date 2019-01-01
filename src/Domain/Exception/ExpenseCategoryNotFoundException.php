@@ -10,7 +10,10 @@ class ExpenseCategoryNotFoundException extends \Exception
     /** @var UuidInterface */
     private $categoryId;
 
-    private function __construct() { }
+    private function __construct()
+    {
+        parent::__construct();
+    }
 
     public static function fromCategoryId(UuidInterface $categoryId) : self
     {

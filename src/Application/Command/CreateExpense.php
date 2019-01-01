@@ -37,8 +37,13 @@ class CreateExpense extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $categoryId = Uuid::fromString($input->getArgument('categoryId'));
-        $price = Price::fromString($input->getArgument('price'));
+        /** @var string $categoryIdInput */
+        $categoryIdInput = $input->getArgument('categoryId');
+        /** @var string $priceInput */
+        $priceInput = $input->getArgument('price');
+
+        $categoryId = Uuid::fromString($categoryIdInput);
+        $price = Price::fromString($priceInput);
         $person = new Person(Uuid::uuid4());
 
         $budget = $this->budgetRepository->getBudget();

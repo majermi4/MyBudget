@@ -32,6 +32,7 @@ class CreateExpenseCategory extends Command
     {
         $budget = $this->budgetRepository->getBudget();
 
+        /** @var string $categoryName */
         $categoryName = $input->getArgument('name');
 
         try {

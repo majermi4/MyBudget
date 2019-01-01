@@ -57,5 +57,8 @@
             "allow-contrib": false,
             "require": "4.2.*"
         }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^0.10.7"
     }
 }
