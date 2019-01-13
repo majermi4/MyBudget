@@ -6,6 +6,7 @@ namespace MyBudget\Tests\Behavioral;
 use Behat\Behat\Context\Context;
 use MyBudget\Domain\Aggregate\Budget;
 use MyBudget\Domain\Exception\CategoryAlreadyExistsException;
+use MyBudget\Domain\Value\Money;
 use Webmozart\Assert\Assert;
 
 class FeatureContext implements Context
@@ -19,7 +20,10 @@ class FeatureContext implements Context
     /** @BeforeScenario */
     public function before($event)
     {
-        $this->budget = Budget::fromEvents([]);
+        $this->budget = Budget::createWithMonthlyContribution(
+            new Money(5000)
+        );
+
         $this->addingCategoryFailed = false;
     }
 

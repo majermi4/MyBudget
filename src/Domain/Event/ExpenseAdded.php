@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyBudget\Domain\Event;
 
-use MyBudget\Domain\Value\Price;
+use MyBudget\Domain\Value\Money;
 use MyBudget\Infrastructure\Event\Event;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -13,10 +13,13 @@ class ExpenseAdded implements Event
     /** @var UuidInterface */
     private $expenseId;
 
+    /** @var string */
+    private $text;
+
     /** @var UuidInterface */
     private $categoryId;
 
-    /** @var Price */
+    /** @var Money */
     private $price;
 
     /** @var UuidInterface */
@@ -27,12 +30,14 @@ class ExpenseAdded implements Event
 
     public function __construct(
         UuidInterface $expenseId,
+        string $text,
         UuidInterface $categoryId,
-        Price $price,
+        Money $price,
         UuidInterface $purchasedBy,
         \DateTime $purchasedAt)
     {
         $this->expenseId = $expenseId;
+        $this->text = $text;
         $this->categoryId = $categoryId;
         $this->price = $price;
         $this->purchasedBy = $purchasedBy;
@@ -44,12 +49,17 @@ class ExpenseAdded implements Event
         return $this->expenseId;
     }
 
+    public function text() : string
+    {
+        return $this->text;
+    }
+
     public function categoryId() : UuidInterface
     {
         return $this->categoryId;
     }
 
-    public function price() : Price
+    public function price() : Money
     {
         return $this->price;
     }
@@ -68,6 +78,7 @@ class ExpenseAdded implements Event
     {
         return [
             'expense_id' => $this->expenseId->toString(),
+            'text' => $this->text,
             'category_id' => $this->categoryId->toString(),
             'price' => $this->price->toString(),
             'purchased_by' => $this->purchasedBy->toString(),
@@ -79,8 +90,9 @@ class ExpenseAdded implements Event
     {
         return new self(
             Uuid::fromString($eventData['expense_id']),
+            $eventData['text'],
             Uuid::fromString($eventData['category_id']),
-            Price::fromString($eventData['price']),
+            Money::fromString($eventData['price']),
             Uuid::fromString($eventData['purchased_by']),
             new \DateTime(json_decode($eventData['purchased_at'], true)['date'])
         );

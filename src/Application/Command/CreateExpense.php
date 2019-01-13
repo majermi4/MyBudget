@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace MyBudget\Application\Command;
 
-use MyBudget\Domain\Aggregate\Person;
-use MyBudget\Domain\Exception\CategoryAlreadyExistsException;
 use MyBudget\Domain\Exception\ExpenseCategoryNotFoundException;
 use MyBudget\Domain\Repository\BudgetRepository;
-use MyBudget\Domain\Value\Price;
+use MyBudget\Domain\Value\Money;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,6 +27,7 @@ class CreateExpense extends Command
     public function configure()
     {
         $this
+            ->addArgument('text', InputArgument::REQUIRED)
             ->addArgument('categoryId', InputArgument::REQUIRED)
             ->addArgument('price', InputArgument::REQUIRED)
             ->addArgument('person_id', InputArgument::REQUIRED)
@@ -41,18 +40,22 @@ class CreateExpense extends Command
         $categoryIdInput = $input->getArgument('categoryId');
         /** @var string $priceInput */
         $priceInput = $input->getArgument('price');
+        /** @var string $text */
+        $text = $input->getArgument('text');
 
         $categoryId = Uuid::fromString($categoryIdInput);
-        $price = Price::fromString($priceInput);
-        $person = new Person(Uuid::uuid4());
+        $price = Money::fromString($priceInput);
+        // TODO: parse real user id
+        $personId = Uuid::uuid4();
 
         $budget = $this->budgetRepository->getBudget();
 
         try {
             $budget->addExpense(
+                $text,
                 $categoryId,
                 $price,
-                $person,
+                $personId,
                 new \DateTime()
             );
         } catch (ExpenseCategoryNotFoundException $e) {

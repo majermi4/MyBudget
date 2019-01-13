@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace MyBudget\Domain\Entity;
 
-use MyBudget\Domain\Value\Price;
+use MyBudget\Domain\Value\Money;
 use Ramsey\Uuid\UuidInterface;
 
 class Expense
@@ -11,10 +11,13 @@ class Expense
     /** @var UuidInterface */
     private $id;
 
+    /** @var string */
+    private $text;
+
     /** @var UuidInterface */
     private $categoryId;
 
-    /** @var Price */
+    /** @var Money */
     private $price;
 
     /** @var UuidInterface */
@@ -25,12 +28,14 @@ class Expense
 
     public function __construct(
         UuidInterface $id,
+        string $text,
         UuidInterface $categoryId,
-        Price $price, UuidInterface
-        $purchasedBy,
+        Money $price,
+        UuidInterface $purchasedBy,
         \DateTime $purchasedAt)
     {
         $this->id = $id;
+        $this->text = $text;
         $this->categoryId = $categoryId;
         $this->price = $price;
         $this->purchasedBy = $purchasedBy;
@@ -42,12 +47,17 @@ class Expense
         return $this->id;
     }
 
+    public function text() : string
+    {
+        return $this->text;
+    }
+
     public function categoryId() : UuidInterface
     {
         return $this->categoryId;
     }
 
-    public function price() : Price
+    public function price() : Money
     {
         return $this->price;
     }
