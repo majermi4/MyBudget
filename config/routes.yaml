@@ -1,3 +1,19 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+retrieveClientData:
+    path: /retrieve-client-data.json
+    controller: MyBudget\Application\Controller\RetrieveClientData
+    methods: [GET]
+
+showExpenses:
+    path: /expenses.json
+    controller: MyBudget\Application\Controller\ShowExpenses
+    methods: [GET]
+
+showExpenseCategories:
+    path: /expense-categories.json
+    controller: MyBudget\Application\Controller\ShowExpenseCategories
+    methods: [GET]
+
+addExpenseCategory:
+    path: /add-expense-category
+    controller: MyBudget\Application\Controller\AddExpenseCategory
+    methods: [POST]
