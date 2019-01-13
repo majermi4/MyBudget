@@ -12,7 +12,7 @@ class AddExpenseCategory
 {
     public function __invoke(Request $request, BudgetRepository $budgetRepository) : Response
     {
-        $requestJson = json_decode($request->getContent(), true);
+        $requestJson = json_decode((string) $request->getContent(), true);
         $categoryName = $requestJson['categoryName'] ?? '';
 
         if (strlen($categoryName) < 2) {

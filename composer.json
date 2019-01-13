@@ -48,7 +48,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test" : "vendor/bin/phpstan analyse src --level 7 && vendor/bin/behat"
     },
     "conflict": {
         "symfony/symfony": "*"

@@ -12,7 +12,7 @@ class PersonNotRegisteredInBudgetException extends \Exception
         parent::__construct(
             sprintf(
                 'Person with id "%s" has not been registered to the budget.',
-                $personId
+                $personId->toString()
             )
         );
     }
